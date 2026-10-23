@@ -21,6 +21,21 @@
         integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Tailwind: tw- prefix and no preflight, so it layers on top of the hand-written CSS without clashing -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            prefix: 'tw-',
+            corePlugins: { preflight: false },
+            theme: {
+                extend: {
+                    keyframes: { marquee: { to: { transform: 'translateX(-50%)' } } },
+                    animation: { marquee: 'marquee 45s linear infinite' }
+                }
+            }
+        };
+    </script>
+
     <style>
         :root {
             --bg: #f7f7f5;
@@ -1069,126 +1084,86 @@
             background: #8f9ce8;
         }
 
-        /* ================= About (testimonial-style card) ================= */
-        .about-wrap {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .quote-stage {
-            position: relative;
-            width: 100%;
-            min-height: 280px;
-            display: grid;
-            perspective: 1200px;
-        }
-
-        /* quotes turn like the faces of a 3D cube */
-        .quote {
-            grid-area: 1 / 1;
-            background: var(--card);
-            border-radius: 12px;
-            padding: 26px;
-            opacity: 0;
-            transform: rotateY(-90deg);
-            transform-origin: 50% 50% -300px;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transition: opacity .7s ease, transform .8s cubic-bezier(.3, .8, .25, 1);
-            pointer-events: none;
-            align-self: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
-        }
-
-        .quote.prev {
-            transform: rotateY(90deg);
-        }
-
-        .quote.on {
-            opacity: 1;
-            transform: none;
-            pointer-events: auto;
-        }
-
-        .quote .q-kicker {
+        /* ================= About: live terminal ================= */
+        .term-tab {
             font-family: "Geist Mono", monospace;
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--teal);
-            margin-bottom: 10px;
-        }
-
-        .quote p {
-            color: #4b5563;
-            font-style: italic;
-            font-size: 16px;
-            line-height: 1.65;
-            margin-bottom: 18px;
-        }
-
-        .author {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-weight: 700;
-            font-size: 15px;
-            color: #fff;
-            background: linear-gradient(135deg, #5fb8a8, #8f9ce8);
-            flex-shrink: 0;
-        }
-
-        .author b {
-            display: block;
-            font-weight: 600;
-            color: #1f2937;
-        }
-
-        .author small {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .mini-dots {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mini-dots button.dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            border: 0;
-            background: #9ca3af;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .mini-dots button.dot.on {
-            background: #1f2937;
-            transform: scale(1.2);
-        }
-
-        .mini-dots .chev {
+            font-size: 11.5px;
+            padding: 5px 10px;
+            border-radius: 8px;
             border: 0;
             background: none;
-            font-size: 18px;
+            color: #71717a;
             cursor: pointer;
-            padding: 4px 6px;
-            color: var(--ink);
+            white-space: nowrap;
+            transition: background .2s, color .2s;
+        }
+
+        .term-tab::before {
+            content: "❯ ";
+            color: var(--teal);
+        }
+
+        .term-tab:hover {
+            color: #d4d4d8;
+        }
+
+        .term-tab.on {
+            background: rgba(255, 255, 255, .08);
+            color: #f4f4f5;
+        }
+
+        #termBody,
+        #termTabs {
+            scrollbar-width: none;
+        }
+
+        #termTabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        #termBody div {
+            white-space: pre-wrap;
+        }
+
+        .t-p,
+        .t-a {
+            color: var(--teal);
+        }
+
+        .t-c {
+            color: #f4f4f5;
+        }
+
+        .t-k,
+        .t-m {
+            color: #71717a;
+        }
+
+        .t-v {
+            color: #d4d4d8;
+        }
+
+        .t-s {
+            color: #7dd3c0;
+        }
+
+        .t-h {
+            color: #a5b4fc;
+            font-weight: 500;
+        }
+
+        .t-g {
+            color: #6ee7b7;
+        }
+
+        .term-caret {
+            display: inline-block;
+            width: 7px;
+            height: 1.05em;
+            margin-left: 1px;
+            vertical-align: -2px;
+            background: var(--teal);
+            animation: caret 1s steps(1) infinite;
         }
 
         /* ================= Experience timeline ================= */
@@ -1511,18 +1486,6 @@
                 padding-bottom: 10px;
             }
 
-            .quote-stage {
-                min-height: 0;
-            }
-
-            .quote {
-                padding: 20px;
-            }
-
-            .quote p {
-                font-size: 14.5px;
-            }
-
             .t-node {
                 padding: 10px 0;
             }
@@ -1612,6 +1575,11 @@
 </head>
 
 <body>
+    <!-- soft glow that follows the cursor, under the 3D canvas -->
+    <div id="spot" aria-hidden="true"
+        class="tw-pointer-events-none tw-fixed tw-inset-0 tw-z-0 tw-hidden [@media(hover:hover)]:tw-block"
+        style="background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 35%), rgba(95, 184, 168, .14), rgba(143, 156, 232, .06) 40%, transparent 70%)">
+    </div>
     <div id="scene" aria-hidden="true"></div>
 
     <header class="topbar">
@@ -1619,7 +1587,7 @@
         <div class="top-actions">
             <a href="files/Farhat_Hussain_Full_Stack_Developer_Resume.pdf" target="_blank" rel="noopener" class="pill-btn"><i
                     class="fa-regular fa-file-lines"></i> Resume</a>
-            <a href="#contact" class="pill-btn dark" data-go="5">Hire me</a>
+            <a href="#contact" class="pill-btn dark tw-shadow-lg tw-shadow-teal-600/25" data-go="5">Hire me</a>
         </div>
     </header>
 
@@ -1629,17 +1597,30 @@
         <!-- 0 · Hero -->
         <section id="home" data-title="Home">
             <div class="hero-text">
-                <span class="hello"><i></i> <span id="helloText">Hi, I'm Farhat Hussain</span></span>
+                <span
+                    class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-teal-200/80 tw-bg-white/70 tw-px-3 tw-py-1 tw-text-xs tw-font-medium tw-text-teal-800 tw-shadow-sm tw-backdrop-blur">
+                    <span class="tw-relative tw-flex tw-h-2 tw-w-2">
+                        <span class="tw-absolute tw-inline-flex tw-h-full tw-w-full tw-animate-ping tw-rounded-full tw-bg-teal-400 tw-opacity-75"></span>
+                        <span class="tw-relative tw-inline-flex tw-h-2 tw-w-2 tw-rounded-full tw-bg-teal-500"></span>
+                    </span>
+                    Available for freelance projects
+                </span>
+                <span class="hello"><span id="helloText">Hi, I'm Farhat Hussain</span></span>
                 <h1>Full Stack Developer</h1>
                 <p class="typed" id="typed"
                     data-text="I build production-ready ERP, CRM and web apps with Node.js, Express, Next.js, Tailwind, PostgreSQL and MongoDB, from clean APIs and databases to interfaces people enjoy using.">
                 </p>
                 <div class="hero-ctas">
-                    <a href="#projects" class="pill-btn dark" data-go="2"><i class="fa-solid fa-layer-group"></i> View
+                    <a href="#projects" class="pill-btn dark tw-shadow-lg tw-shadow-teal-600/25" data-go="2"><i class="fa-solid fa-layer-group"></i> View
                         projects</a>
                     <a href="#contact" class="pill-btn" data-go="5"><i class="fa-regular fa-paper-plane"></i> Get in
                         touch</a>
                 </div>
+            </div>
+            <!-- tech marquee -->
+            <div aria-hidden="true"
+                class="tw-absolute tw-inset-x-0 tw-bottom-[2.5svh] tw-overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]">
+                <div id="marquee" class="tw-flex tw-w-max tw-gap-3 tw-py-1 tw-animate-marquee hover:[animation-play-state:paused]"></div>
             </div>
         </section>
 
@@ -1674,6 +1655,11 @@
                         <button class="arrow" id="next" aria-label="Next project"><i
                                 class="fa-solid fa-chevron-right"></i></button>
                     </div>
+                    <div class="tw-mt-3 tw-h-1 tw-w-40 tw-overflow-hidden tw-rounded-full tw-bg-zinc-200">
+                        <div id="pbar"
+                            class="tw-h-full tw-rounded-full tw-bg-gradient-to-r tw-from-teal-400 tw-to-indigo-400 tw-transition-all tw-duration-700">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="slot"></div>
@@ -1684,41 +1670,42 @@
             <h2 class="sec-title">About</h2>
             <div class="slot"></div>
             <div class="content">
-                <div class="about-wrap">
-                    <div class="quote-stage" id="quotes">
-                        <article class="quote on">
-                            <div class="q-kicker">Who I am</div>
-                            <p>"I'm a full stack developer from Karachi with a BS in Computer Science from the
-                                University of Sindh. I started with Java desktop apps and now ship production web
-                                systems with Node.js, Next.js and PostgreSQL."</p>
-                            <div class="author"><span class="avatar">FH</span>
-                                <div><b>Farhat Hussain</b><small>Full Stack Developer</small></div>
+                <div class="tw-flex tw-w-full tw-max-w-[600px] tw-items-stretch tw-gap-5">
+                    <div class="tw-flex tw-min-w-0 tw-flex-1 tw-flex-col tw-gap-3">
+                        <!-- live terminal -->
+                        <div
+                            class="tw-flex tw-flex-col tw-overflow-hidden tw-rounded-2xl tw-bg-zinc-950 tw-shadow-2xl tw-shadow-zinc-900/25 tw-ring-1 tw-ring-white/10">
+                            <div
+                                class="tw-flex tw-items-center tw-gap-2 tw-border-0 tw-border-b tw-border-solid tw-border-white/10 tw-px-4 tw-py-2.5">
+                                <span class="tw-h-2.5 tw-w-2.5 tw-rounded-full tw-bg-[#f87171]"></span>
+                                <span class="tw-h-2.5 tw-w-2.5 tw-rounded-full tw-bg-[#fbbf24]"></span>
+                                <span class="tw-h-2.5 tw-w-2.5 tw-rounded-full tw-bg-[#4ade80]"></span>
+                                <span class="mono tw-ml-2 tw-text-[11.5px] tw-text-zinc-500">farhat@karachi: ~</span>
                             </div>
-                        </article>
-                        <article class="quote">
-                            <div class="q-kicker">What I'm proud of</div>
-                            <p>"I built a multi-company ERP + CRM SaaS where each business gets its own workspace,
-                                from leads and invoices to double-entry accounting. I also fixed the reporting area
-                                of the SSB system, so every record can be exported to Excel and PDF."</p>
-                            <div class="author"><span class="avatar">FH</span>
-                                <div><b>ERP + CRM SaaS</b><small>Next.js · Node.js · PostgreSQL · Redis</small></div>
+                            <div class="tw-flex tw-gap-1 tw-overflow-x-auto tw-px-3 tw-pt-3" role="tablist" id="termTabs">
+                                <button class="term-tab" role="tab">whoami</button>
+                                <button class="term-tab" role="tab">cat proud.md</button>
+                                <button class="term-tab" role="tab">cat how-i-work.md</button>
                             </div>
-                        </article>
-                        <article class="quote">
-                            <div class="q-kicker">How I work</div>
-                            <p>"I care about the parts users never see: clean data models, sensible permissions and
-                                secure APIs. Then I make the interface on top of them fast and simple."</p>
-                            <div class="author"><span class="avatar">FH</span>
-                                <div><b>Clean code, clear UI</b><small>Node · Next.js · PostgreSQL</small></div>
+                            <div id="termBody" aria-live="polite"
+                                class="mono tw-h-[150px] tw-overflow-y-auto tw-px-4 tw-py-3 tw-text-[12px] tw-leading-relaxed md:tw-h-[230px] md:tw-text-[12.5px]">
                             </div>
-                        </article>
-                    </div>
-                    <div class="mini-dots" id="quoteNav">
-                        <button class="chev" data-step="-1" aria-label="Previous">❮</button>
-                        <button class="dot on" aria-label="Slide 1"></button>
-                        <button class="dot" aria-label="Slide 2"></button>
-                        <button class="dot" aria-label="Slide 3"></button>
-                        <button class="chev" data-step="1" aria-label="Next">❯</button>
+                        </div>
+                        <!-- stat tiles -->
+                        <div class="tw-grid tw-grid-cols-3 tw-gap-3">
+                            <div class="tw-rounded-xl tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-px-3 tw-py-2 tw-shadow-sm tw-backdrop-blur md:tw-py-3">
+                                <b class="tw-block tw-bg-gradient-to-r tw-from-teal-500 tw-to-indigo-500 tw-bg-clip-text tw-text-xl tw-font-semibold tw-text-transparent md:tw-text-2xl" data-count="12">12</b>
+                                <small class="tw-text-[12px] tw-text-zinc-500">Projects</small>
+                            </div>
+                            <div class="tw-rounded-xl tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-px-3 tw-py-2 tw-shadow-sm tw-backdrop-blur md:tw-py-3">
+                                <b class="tw-block tw-bg-gradient-to-r tw-from-teal-500 tw-to-indigo-500 tw-bg-clip-text tw-text-xl tw-font-semibold tw-text-transparent md:tw-text-2xl" data-count="20">20</b>
+                                <small class="tw-text-[12px] tw-text-zinc-500">Technologies</small>
+                            </div>
+                            <div class="tw-rounded-xl tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-px-3 tw-py-2 tw-shadow-sm tw-backdrop-blur md:tw-py-3">
+                                <b class="tw-block tw-bg-gradient-to-r tw-from-teal-500 tw-to-indigo-500 tw-bg-clip-text tw-text-xl tw-font-semibold tw-text-transparent md:tw-text-2xl" data-count="4">4</b>
+                                <small class="tw-text-[12px] tw-text-zinc-500">Databases</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1751,7 +1738,7 @@
             <h2 class="sec-title">Contact</h2>
             <div class="slot"></div>
             <div class="content">
-                <div class="contact-card" data-tilt="5">
+                <div class="contact-card tw-shadow-2xl tw-shadow-zinc-900/10" data-tilt="5">
                     <h2>Let's build something together.</h2>
                     <p>Have a project, a role or a messy workflow to fix? Send me a message.</p>
                     <div class="links">
@@ -1801,10 +1788,12 @@
         document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); goTo(+a.dataset.go); }));
 
         let activeIdx = -1;
+        let onSection = () => { };
         function updateActive() {
             const i = Math.round(main.scrollTop / main.clientHeight);
             if (i === activeIdx) return;
             activeIdx = i;
+            onSection(i);
             sections.forEach((s, k) => s.classList.toggle('active', k === i));
             dotBtns.forEach((b, k) => b.classList.toggle('on', k === i));
         }
@@ -2002,6 +1991,7 @@
                 cards[k].classList.remove('on');
             });
             counter.innerHTML = `<b>${String(pIdx + 1).padStart(2, '0')}</b> / ${String(n).padStart(2, '0')}`;
+            document.getElementById('pbar').style.width = ((pIdx + 1) / n * 100) + '%';
         }
         document.getElementById('prev').onclick = () => showProject(pIdx - 1);
         document.getElementById('next').onclick = () => showProject(pIdx + 1);
@@ -2044,6 +2034,17 @@
             });
         });
 
+        // ---------- Tailwind touches: tech marquee, title underlines, cursor glow ----------
+        const chips = skills.tech.map(([name, icon, color]) => `<span class="tw-inline-flex tw-items-center tw-gap-2 tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/70 tw-px-3.5 tw-py-1.5 tw-text-[13px] tw-font-medium tw-text-zinc-700 tw-shadow-sm tw-backdrop-blur"><i class="${icon}" style="color:${color}"></i>${name}</span>`).join('');
+        document.getElementById('marquee').innerHTML = chips + chips;
+        document.querySelectorAll('.sec-title').forEach(t => t.insertAdjacentHTML('beforeend',
+            '<span class="tw-mx-auto tw-mt-1.5 tw-block tw-h-[3px] tw-w-10 tw-rounded-full tw-bg-gradient-to-r tw-from-teal-400 tw-to-indigo-400"></span>'));
+        const spot = document.getElementById('spot');
+        addEventListener('pointermove', e => {
+            spot.style.setProperty('--sx', e.clientX + 'px');
+            spot.style.setProperty('--sy', e.clientY + 'px');
+        }, { passive: true });
+
         // ---------- Hero parallax ----------
         const heroText = document.querySelector('#home .hero-text');
         if (!reduce) addEventListener('pointermove', e => {
@@ -2051,25 +2052,94 @@
             heroText.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3));
         }, { passive: true });
 
-        // ---------- About slider ----------
-        const quotes = [...document.querySelectorAll('.quote')];
-        const qDots = [...document.querySelectorAll('#quoteNav .dot')];
-        let qIdx = 0;
-        const showQuote = i => {
-            qIdx = (i + quotes.length) % quotes.length;
-            quotes.forEach((q, k) => { q.classList.toggle('on', k === qIdx); q.classList.toggle('prev', k < qIdx); });
-            qDots.forEach((d, k) => d.classList.toggle('on', k === qIdx));
-        };
-        qDots.forEach((d, k) => d.onclick = () => showQuote(k));
-        document.querySelectorAll('#quoteNav .chev').forEach(c => c.onclick = () => showQuote(qIdx + +c.dataset.step));
+        // ---------- About: terminal that types out each command ----------
+        const termCmds = [
+            {
+                cmd: 'whoami', out: [
+                    [['name     ', 'k'], ['Farhat Hussain', 'v']],
+                    [['role     ', 'k'], ['Full Stack Developer', 'v']],
+                    [['based    ', 'k'], ['Karachi, Pakistan', 'v']],
+                    [['degree   ', 'k'], ['BS Computer Science, University of Sindh', 'v']],
+                    [['journey  ', 'k'], ['Java desktop apps → production web systems', 'v']],
+                    [['stack    ', 'k'], ['Node.js · Next.js · PostgreSQL', 's']]
+                ]
+            },
+            {
+                cmd: 'cat proud.md', out: [
+                    [["# What I'm proud of", 'h']],
+                    [['▸ ', 'a'], ['A multi-company ERP + CRM SaaS where each business gets its own workspace,', 'v']],
+                    [['  ', 'a'], ['from leads and invoices to double-entry accounting.', 'm']],
+                    [['▸ ', 'a'], ['Fixed the reporting area of the SSB system, so every record', 'v']],
+                    [['  ', 'a'], ['can be exported to Excel and PDF.', 'm']]
+                ]
+            },
+            {
+                cmd: 'cat how-i-work.md', out: [
+                    [['# How I work', 'h']],
+                    [['▸ ', 'a'], ['I care about the parts users never see:', 'v']],
+                    [['  ✓ ', 'g'], ['clean data models', 'v']],
+                    [['  ✓ ', 'g'], ['sensible permissions', 'v']],
+                    [['  ✓ ', 'g'], ['secure APIs', 'v']],
+                    [['▸ ', 'a'], ['Then I make the interface on top of them fast and simple.', 'v']]
+                ]
+            }
+        ];
+        const termTabs = [...document.querySelectorAll('#termTabs .term-tab')];
+        const termBody = document.getElementById('termBody');
+        const caretEl = document.createElement('span'); caretEl.className = 'term-caret';
+        const PROMPT = 'farhat@karachi:~$ ';
+        let tIdx = 0, tRun = 0;
+        function runCmd(i) {
+            tIdx = (i + termCmds.length) % termCmds.length;
+            termTabs.forEach((b, k) => { b.classList.toggle('on', k === tIdx); b.setAttribute('aria-selected', k === tIdx); });
+            const run = ++tRun, lines = [[[PROMPT, 'p'], [termCmds[tIdx].cmd, 'c']], ...termCmds[tIdx].out];
+            termBody.innerHTML = '';
+            let li = 0, si = 0, ci = 0, div = null, span = null;
+            (function step() {
+                if (run !== tRun) return;
+                if (li >= lines.length) {
+                    const d = document.createElement('div');
+                    d.innerHTML = `<span class="t-p">${PROMPT}</span>`;
+                    d.appendChild(caretEl); termBody.appendChild(d);
+                    termBody.scrollTop = termBody.scrollHeight;
+                    return;
+                }
+                const segs = lines[li], [text, cls] = segs[si];
+                if (!div) { div = document.createElement('div'); termBody.appendChild(div); }
+                if (!span) { span = document.createElement('span'); span.className = 't-' + cls; div.appendChild(span); div.appendChild(caretEl); }
+                // the prompt appears at once, the command is typed by hand, the output streams fast
+                const n = reduce || (li === 0 && si === 0) ? text.length : li === 0 ? 1 : 3;
+                span.textContent += text.slice(ci, ci + n); ci += n;
+                if (ci >= text.length) { ci = 0; span = null; if (++si >= segs.length) { si = 0; li++; div = null; } }
+                termBody.scrollTop = termBody.scrollHeight;
+                if (reduce) return step();
+                setTimeout(step, li === 0 ? 70 : li === 1 && !div ? 380 : !div ? 80 : 14);
+            })();
+        }
+        termTabs.forEach((b, k) => b.onclick = () => runCmd(k));
 
-        // Keyboard: arrows move projects / quotes when their section is active
+        // stat tiles count up
+        function countUp() {
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const to = +el.dataset.count, t0 = performance.now();
+                if (reduce) return el.textContent = to;
+                (function f(now) {
+                    const p = clamp((now - t0) / 1200);
+                    el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+                    if (p < 1) requestAnimationFrame(f);
+                })(t0);
+            });
+        }
+        onSection = i => { if (i === 3) { runCmd(tIdx); countUp(); } };
+        runCmd(0);
+
+        // Keyboard: arrows move projects / terminal commands when their section is active
         addEventListener('keydown', e => {
             if (e.target.closest('input, textarea')) return;
             if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
             const d = e.key === 'ArrowRight' ? 1 : -1;
             if (activeIdx === 2) showProject(pIdx + d);
-            if (activeIdx === 3) showQuote(qIdx + d);
+            if (activeIdx === 3) runCmd(tIdx + d);
         });
 
         document.getElementById('year').textContent = new Date().getFullYear();
