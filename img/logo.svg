@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 660" role="img" aria-label="Farhat Hussain">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f4068"/>
+      <stop offset="1" stop-color="#142c48"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b8904c"/>
+      <stop offset=".45" stop-color="#e0c487"/>
+      <stop offset="1" stop-color="#b38a48"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#navy)" d="M25 30H510L438 122H118V325H335L282 400H118V635H25Z"/>
+  <path fill="url(#gold)" d="M440 155V325H690V30H782V635H690V400H440V635H365V400H310L363 325H365V240Z"/>
+</svg>
