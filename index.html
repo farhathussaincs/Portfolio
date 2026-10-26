@@ -2597,7 +2597,7 @@
                 return g;
             }
 
-            // ---- 3 · Desk setup (about) ----
+            // ---- 4 · Desk setup (experience) ----
             function desk() {
                 const g = new THREE.Group();
                 box(g, 3.0, .12, 1.5, '#d9a66c', 0, 1.3, 0);
@@ -2618,34 +2618,122 @@
                 box(g, .7, .05, .08, '#71717a', -.2, .03, 1.05);
                 box(g, .08, .05, .7, '#71717a', -.2, .03, 1.05);
                 shadow(g, 4, 3.4);
-                g.userData.base = { ry: .65, rx: .16, y: -1.55 };
+                g.userData.base = { ry: -.65, rx: .16, y: -1.55 };
                 g.userData.leaves = leaves;
                 return g;
             }
 
-            // ---- 4 · Voxel Farhat (experience) ----
+            // ---- 3 · Chibi anime Farhat (about) ----
             function avatar() {
                 const g = new THREE.Group();
-                const suit = '#2f5fa8', skin = '#b98058', hair = '#1c1917';
-                [-.22, .22].forEach(x => { box(g, .38, 1.15, .42, '#1e2a44', x, .72, 0); box(g, .4, .16, .55, '#111111', x, .08, .06); });
-                box(g, 1.05, 1.15, .56, suit, 0, 1.86, 0);
-                box(g, .32, .66, .02, '#f4f4f5', 0, 2.08, .29);
-                box(g, .11, .55, .03, '#1e3a8a', 0, 2.0, .31);
-                const arms = [-.68, .68].map(x => {
-                    const a = new THREE.Group(); a.position.set(x, 2.38, 0); g.add(a);
-                    box(a, .3, 1.02, .38, suit, 0, -.5, 0);
-                    box(a, .27, .22, .3, skin, 0, -1.1, 0);
+                const skin = '#f1c7a3', hair = '#1b1e2b', hoodie = '#2b2f3a', jeans = '#33476b';
+                const S = c => M(c, { flatShading: false, roughness: .55 });
+                const sph = (p, r, c, x, y, z, sx = 1, sy = 1, sz = 1) => {
+                    const m = new THREE.Mesh(new THREE.SphereGeometry(r, 28, 20), typeof c === 'string' ? S(c) : c);
+                    m.position.set(x, y, z); m.scale.set(sx, sy, sz); p.add(m); return m;
+                };
+                const tube = (p, rt, rb, h, c, x, y, z) => {
+                    const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, 20), S(c));
+                    m.position.set(x, y, z); p.add(m); return m;
+                };
+
+                // sneakers + legs
+                [-.19, .19].forEach(x => {
+                    sph(g, .19, '#fafafa', x, .1, .06, 1, .62, 1.45);
+                    box(g, .34, .05, .5, M('#5fb8a8', { flatShading: false }), x, .025, .06);
+                    tube(g, .135, .15, .72, jeans, x, .52, 0);
+                });
+
+                // hoodie body, shoulders, hood and drawstrings
+                tube(g, .38, .46, .92, hoodie, 0, 1.3, 0);
+                sph(g, .385, hoodie, 0, 1.74, 0, 1, .42, .92);
+                box(g, .62, .2, .06, M('#232733', { flatShading: false }), 0, 1.06, .42);
+                const hood = new THREE.Mesh(new THREE.TorusGeometry(.24, .085, 12, 24), S('#3a3f4d'));
+                hood.rotation.x = Math.PI / 2 - .25; hood.position.set(0, 1.84, -.04); g.add(hood);
+                [-.09, .09].forEach(x => tube(g, .014, .014, .3, '#e4e4e7', x, 1.6, .4));
+                // "</>" patch on the chest
+                const lc = document.createElement('canvas'); lc.width = 128; lc.height = 64;
+                const lg = lc.getContext('2d');
+                lg.fillStyle = '#5fb8a8'; lg.font = 'bold 46px "Geist Mono", monospace'; lg.textAlign = 'center'; lg.textBaseline = 'middle';
+                lg.fillText('</>', 64, 34);
+                const patch = new THREE.Mesh(new THREE.PlaneGeometry(.3, .15), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(lc), transparent: true }));
+                patch.position.set(0, 1.4, .418); g.add(patch);
+
+                // arms (pivot at the shoulder so they can wave)
+                const arms = [-.47, .47].map(x => {
+                    const a = new THREE.Group(); a.position.set(x, 1.68, 0); g.add(a);
+                    tube(a, .12, .11, .72, hoodie, 0, -.34, 0);
+                    tube(a, .115, .115, .08, '#3a3f4d', 0, -.72, 0);
+                    sph(a, .12, skin, 0, -.82, 0);
                     return a;
                 });
-                const head = new THREE.Group(); head.position.set(0, 2.88, 0); g.add(head);
-                box(head, .84, .84, .84, skin, 0, 0, 0);
-                box(head, .9, .26, .9, hair, 0, .4, 0);
-                box(head, .9, .55, .12, hair, 0, .2, -.41);
-                [-.2, .2].forEach(x => box(head, .11, .11, .02, '#1c1917', x, .05, .43));
-                box(head, .36, .06, .02, hair, 0, -.17, .43);
-                shadow(g, 2.6, 1.8);
-                g.userData.arms = arms; g.userData.head = head;
-                g.userData.base = { ry: -.5, rx: .06, y: -1.75 };
+
+                tube(g, .1, .11, .2, skin, 0, 1.86, 0);
+
+                // big chibi head
+                const head = new THREE.Group(); head.position.set(0, 2.38, 0); g.add(head);
+                sph(head, .56, skin, 0, 0, 0, 1, .96, .94);
+                [-.55, .55].forEach(x => sph(head, .09, skin, x, -.02, 0, .6, 1, 1));
+
+                // anime eyes: dark almond, teal iris, two highlights
+                const eyes = [-.2, .2].map(x => {
+                    const e = new THREE.Group(); e.position.set(x, -.05, .465); e.rotation.y = x * .9; e.scale.setScalar(1.28); head.add(e);
+                    sph(e, .1, '#16181f', 0, 0, 0, .78, 1.12, .35);
+                    sph(e, .062, M('#3d8f81', { flatShading: false, roughness: .3 }), 0, -.02, .026, .85, 1.05, .3);
+                    sph(e, .03, M('#ffffff', { flatShading: false, emissive: '#ffffff', emissiveIntensity: .6 }), -.028, .04, .045, 1, 1, .4);
+                    sph(e, .014, M('#ffffff', { flatShading: false, emissive: '#ffffff', emissiveIntensity: .6 }), .03, -.045, .045, 1, 1, .4);
+                    return e;
+                });
+                [-.2, .2].forEach(x => { const b = box(head, .17, .028, .02, M(hair, { flatShading: false }), x, .13, .5); b.rotation.z = x > 0 ? -.12 : .12; b.rotation.y = x * .9; });
+                const blush = new THREE.MeshStandardMaterial({ color: '#f08a8a', transparent: true, opacity: .45, roughness: .9 });
+                [-.31, .31].forEach(x => { const b = sph(head, .07, blush, x, -.15, .43, 1.3, .6, .3); b.rotation.y = x * 1.2; });
+                const smile = new THREE.Mesh(new THREE.TorusGeometry(.06, .013, 6, 16, Math.PI), M('#9a4a3a', { flatShading: false }));
+                smile.rotation.z = Math.PI; smile.position.set(0, -.2, .505); head.add(smile);
+
+                // spiky anime hair: cap, back volume, spikes and bangs
+                const hairMat = M(hair, { flatShading: false, roughness: .4, metalness: .15 });
+                const cap = new THREE.Mesh(new THREE.SphereGeometry(.6, 28, 16, 0, Math.PI * 2, 0, Math.PI * .5), hairMat);
+                cap.position.set(0, .06, -.04); cap.scale.set(1, .95, 1); head.add(cap);
+                sph(head, .57, hairMat, 0, -.02, -.12, 1.02, .98, .9);
+                const spike = (x, y, z, rx, rz, len = .5, r = .16) => {
+                    const c = new THREE.Mesh(new THREE.ConeGeometry(r, len, 8), hairMat);
+                    c.position.set(x, y, z); c.rotation.set(rx, 0, rz); head.add(c);
+                };
+                // hair tufts poking out from under the cap at the sides and back
+                spike(.56, .08, -.05, -.1, -1.75, .34, .13);
+                spike(-.56, .08, -.05, -.1, 1.75, .34, .13);
+                spike(.5, .02, .18, .1, -2.1, .28, .11);
+                spike(-.5, .02, .18, .1, 2.1, .28, .11);
+                spike(0, .1, -.6, -1.75, 0, .38, .15);
+                spike(.3, .08, -.54, -1.7, -.5, .34, .13);
+                spike(-.3, .08, -.54, -1.7, .5, .34, .13);
+
+                // baseball cap: dark crown, teal brim + band + button, "FH" on the front panel
+                const capDark = M('#1f2430', { flatShading: false, roughness: .7 });
+                const capTeal = M('#3d8f81', { flatShading: false, roughness: .6 });
+                const crown = new THREE.Mesh(new THREE.SphereGeometry(.64, 32, 16, 0, Math.PI * 2, 0, Math.PI * .5), capDark);
+                crown.position.set(0, .16, -.02); crown.scale.set(1, .82, 1.02); head.add(crown);
+                const band = new THREE.Mesh(new THREE.TorusGeometry(.64, .028, 8, 40), capTeal);
+                band.rotation.x = Math.PI / 2; band.position.set(0, .165, -.02); band.scale.set(1, 1.02, 1); head.add(band);
+                sph(head, .06, capTeal, 0, .16 + .64 * .82, -.02, 1, .6, 1);
+                // seams running over the crown
+                [0, Math.PI / 3, -Math.PI / 3].forEach(r => {
+                    const seam = new THREE.Mesh(new THREE.TorusGeometry(.645, .007, 4, 40, Math.PI), M('#2f3645', { flatShading: false }));
+                    seam.rotation.y = r; seam.position.set(0, .16, -.02); seam.scale.set(1, .82, 1); head.add(seam);
+                });
+                const brim = new THREE.Mesh(new THREE.CylinderGeometry(.44, .44, .035, 32, 1, false, -Math.PI / 2, Math.PI), capTeal);
+                brim.position.set(0, .22, .44); brim.scale.set(.95, 1, 1.1); brim.rotation.x = .1; head.add(brim);
+                const fc = document.createElement('canvas'); fc.width = 128; fc.height = 96;
+                const fg = fc.getContext('2d');
+                fg.font = 'bold 64px "Geist", sans-serif'; fg.textAlign = 'center'; fg.textBaseline = 'middle';
+                fg.fillStyle = '#ffffff'; fg.fillText('F', 46, 52);
+                fg.fillStyle = '#7dd3c0'; fg.fillText('H', 84, 52);
+                const capLogo = new THREE.Mesh(new THREE.PlaneGeometry(.26, .195), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(fc), transparent: true }));
+                capLogo.position.set(0, .4, .6); capLogo.rotation.x = -.45; head.add(capLogo);
+
+                shadow(g, 2.2, 1.6);
+                g.userData.arms = arms; g.userData.head = head; g.userData.eyes = eyes;
+                g.userData.base = { ry: .45, rx: .06, y: -1.75 };
                 return g;
             }
 
@@ -2673,7 +2761,7 @@
                 return g;
             }
 
-            const models = [laptop(), rack(), showcase(), desk(), avatar(), plane()];
+            const models = [laptop(), rack(), showcase(), avatar(), desk(), plane()];
             const sizes = [1.05, .95, 1.1, .95, .95, 1];
             const holders = models.map(m => { const h = new THREE.Group(); h.add(m); m.position.y = m.userData.base.y; scene.add(h); return h; });
 
@@ -2736,7 +2824,7 @@
 
             // Where each section's model sits, as fractions of the viewport
             // Approximate rendered height of each model (world units at scale 1)
-            const modelH = [2.6, 3.4, 3.1, 2.8, 3.3, 2.4];
+            const modelH = [2.6, 3.4, 3.1, 3.3, 2.8, 2.4];
             const anchors = () => {
                 if (innerWidth >= 768)
                     return [{ x: .5, y: .33, s: 1 }, { x: .19, y: .53, s: 1 }, { x: .82, y: .52, s: 1 }, { x: .19, y: .53, s: 1 }, { x: .82, y: .53, s: 1 }, { x: .2, y: .52, s: 1 }];
@@ -2814,14 +2902,16 @@
                 S.phone.position.y = 1.2 + Math.sin(T * 1.3) * .08;
                 S.blocks.forEach((b, k) => b.rotation.y = k * .4 + Math.sin(T * .8 + k) * .35);
 
-                models[3].userData.leaves.rotation.y = T * .4;
+                models[4].userData.leaves.rotation.y = T * .4;
 
-                const V = models[4].userData;
-                const waving = activeIdx === 4 ? (Math.sin(T * .8) > .2 ? 1 : 0) : 0;
+                const V = models[3].userData;
+                const waving = activeIdx === 3 ? (Math.sin(T * .8) > .2 ? 1 : 0) : 0;
                 V.arms[1].rotation.z = lerp(V.arms[1].rotation.z, waving ? 2.6 + Math.sin(T * 9) * .3 : .05, .08);
                 V.arms[0].rotation.z = -.05 + Math.sin(T * 1.2) * .04;
                 V.head.rotation.y = Math.sin(T * .6) * .25;
-                models[4].position.y = V.base.y + Math.abs(Math.sin(T * 1.6)) * .04;
+                models[3].position.y = V.base.y + Math.abs(Math.sin(T * 1.6)) * .04;
+                // blink every few seconds
+                V.eyes.forEach(e => e.scale.y = e.scale.x * (reduce || (T % 3.6) > .12 ? 1 : .1));
 
                 const P = models[5].userData;
                 const path = tt => new THREE.Vector3(Math.sin(tt) * 1.9, Math.sin(tt * 2) * .5 + .1, Math.cos(tt) * .45 - .3);
