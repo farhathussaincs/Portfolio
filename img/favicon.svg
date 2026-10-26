@@ -1,18 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 810">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Farhat Hussain">
   <defs>
-    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1f4068"/>
-      <stop offset="1" stop-color="#142c48"/>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a30"/>
+      <stop offset="1" stop-color="#0b0b0e"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#b8904c"/>
-      <stop offset=".45" stop-color="#e0c487"/>
-      <stop offset="1" stop-color="#b38a48"/>
+    <radialGradient id="glow" cx=".85" cy=".1" r=".9">
+      <stop offset="0" stop-color="#6b78d6" stop-opacity=".45"/>
+      <stop offset=".55" stop-color="#5fb8a8" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#5fb8a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".08"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d4d4d8"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7dd3c0"/>
+      <stop offset=".55" stop-color="#5fb8a8"/>
+      <stop offset="1" stop-color="#8f9ce8"/>
     </linearGradient>
   </defs>
-  <rect width="810" height="810" rx="170" fill="#fff"/>
-  <g transform="translate(81 105) scale(.8)">
-    <path fill="url(#navy)" d="M25 30H510L438 122H118V325H335L282 400H118V635H25Z"/>
-    <path fill="url(#gold)" d="M440 155V325H690V30H782V635H690V400H440V635H365V400H310L363 325H365V240Z"/>
+  <rect width="120" height="120" rx="30" fill="url(#tile)"/>
+  <rect width="120" height="120" rx="30" fill="url(#glow)"/>
+  <rect x="1" y="1" width="118" height="118" rx="29" fill="none" stroke="url(#edge)" stroke-width="2"/>
+  <g transform="translate(21.6 28.4) scale(.0951)">
+    <path fill="url(#ink)" d="M25 30H510L438 122H118V325H335L282 400H118V635H25Z"/>
+    <path fill="url(#accent)" d="M440 155V325H690V30H782V635H690V400H440V635H365V400H310L363 325H365V240Z"/>
   </g>
 </svg>
