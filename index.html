@@ -141,14 +141,32 @@
         /* ================= Fixed chrome ================= */
         .topbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 10px;
+            left: 14px;
+            right: 14px;
             z-index: 20;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 22px;
+            padding: 9px 10px 9px 12px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .48));
+            backdrop-filter: blur(22px) saturate(1.8);
+            -webkit-backdrop-filter: blur(22px) saturate(1.8);
+            border: 1px solid rgba(255, 255, 255, .75);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .95) inset, 0 -1px 0 rgba(24, 24, 27, .03) inset,
+                0 12px 32px -16px rgba(24, 24, 27, .22), 0 0 0 1px rgba(24, 24, 27, .05);
+        }
+
+        /* gradient hairline along the bottom edge of the glass bar */
+        .topbar::after {
+            content: "";
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            bottom: -1px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(95, 184, 168, .7), rgba(143, 156, 232, .7), transparent);
             pointer-events: none;
         }
 
@@ -346,11 +364,11 @@
         /* desktop: the top nav owns the first row, so titles and content start lower */
         @media (min-width: 1024px) {
             section {
-                padding-top: 120px;
+                padding-top: 132px;
             }
 
             .sec-title {
-                top: 74px;
+                top: 90px;
                 font-size: 26px;
             }
         }
@@ -1593,7 +1611,7 @@
             }
 
             .sec-title {
-                top: 62px;
+                top: 82px;
                 font-size: 18px;
             }
 
@@ -1789,7 +1807,7 @@
             </span>
         </a>
         <nav id="topnav" aria-label="Primary"
-            class="glass tw-absolute tw-left-1/2 tw-top-3.5 tw-hidden -tw-translate-x-1/2 tw-items-center tw-gap-0.5 tw-rounded-full tw-p-1 lg:tw-flex">
+            class="tw-absolute tw-left-1/2 tw-top-1/2 tw-hidden -tw-translate-x-1/2 -tw-translate-y-1/2 tw-rounded-full tw-bg-zinc-900/[.045] tw-shadow-[inset_0_1px_2px_rgba(0,0,0,.06)] tw-items-center tw-gap-0.5 tw-rounded-full tw-p-1 lg:tw-flex">
             <span id="navPill"
                 class="tw-absolute tw-bottom-1 tw-top-1 tw-rounded-full tw-bg-white tw-shadow-[0_1px_3px_rgba(0,0,0,.08),0_6px_16px_-6px_rgba(0,0,0,.12)] tw-transition-all tw-duration-500 tw-ease-out"></span>
         </nav>
@@ -1825,7 +1843,7 @@
                     <a href="#contact" class="pill-btn !tw-px-5 !tw-py-2.5" data-go="5"><i class="fa-regular fa-paper-plane"></i> Get in
                         touch</a>
                     <span class="tw-hidden tw-items-center tw-gap-1.5 tw-pl-1 sm:tw-flex">
-                        <a href="https://github.com/farhathusssain" target="_blank" rel="noopener" aria-label="GitHub"
+                        <a href="https://github.com/farhathussaincs" target="_blank" rel="noopener" aria-label="GitHub"
                             class="tw-grid tw-h-10 tw-w-10 tw-place-items-center tw-rounded-full tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-text-zinc-600 tw-backdrop-blur tw-transition hover:-tw-translate-y-0.5 hover:tw-border-zinc-300 hover:tw-text-zinc-900"><i
                                 class="fa-brands fa-github"></i></a>
                         <a href="https://www.linkedin.com/in/farhathussainchanna/" target="_blank" rel="noopener" aria-label="LinkedIn"
@@ -1965,7 +1983,7 @@
                         <a href="mailto:farhathussaincs@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
                         <a href="https://www.linkedin.com/in/farhathussainchanna/" target="_blank"><i
                                 class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                        <a href="https://github.com/farhathusssain" target="_blank"><i class="fa-brands fa-github"></i>
+                        <a href="https://github.com/farhathussaincs" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>
                             GitHub</a>
                         <a href="https://www.instagram.com/farhathussainchanna/" target="_blank"><i
                                 class="fa-brands fa-instagram"></i> Instagram</a>
@@ -2134,7 +2152,7 @@
         addEventListener('resize', () => { const t = tabs.find(x => x.getAttribute('aria-selected') === 'true'); pill.style.left = t.offsetLeft + 'px'; pill.style.width = t.offsetWidth + 'px'; });
 
         // ---------- Projects: flip-card carousel ----------
-        const GH = 'https://github.com/farhathusssain';
+        const GH = 'https://github.com/farhathussaincs';
         const projects = [
             { title: 'ERP + CRM SaaS', kicker: 'Multi-company · SaaS', poster: 'erp', icon: 'fa-solid fa-building', c: '#5fb8a8', stat: ['fa-solid fa-users-gear', 'Multi-tenant'],
               desc: 'Each company gets its own workspace and sees only its own data. Leads become customers, quotations, invoices and payments, and suppliers, purchase orders and inventory are tracked too. Double-entry journals feed the trial balance, P&L and balance sheet, with role-based access and approvals for big discounts and expenses.',
@@ -2703,7 +2721,7 @@
                 return sections.map((sec, i) => {
                     const st = sec.getBoundingClientRect().top;
                     const first = sec.querySelector('.content > *, .hero-text');
-                    const top = i === 0 ? 64 : 92;
+                    const top = i === 0 ? 76 : 116;
                     const bottom = first.getBoundingClientRect().top - st - (i === 0 ? 0 : 18) - 12;
                     const frac = Math.max(.12, (bottom - top) / innerHeight);
                     const fit = frac * 8.83 * .82 / (modelH[i] * sizes[i]);
