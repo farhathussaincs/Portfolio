@@ -29,8 +29,16 @@
             corePlugins: { preflight: false },
             theme: {
                 extend: {
-                    keyframes: { marquee: { to: { transform: 'translateX(-50%)' } } },
-                    animation: { marquee: 'marquee 45s linear infinite' }
+                    keyframes: {
+                        marquee: { to: { transform: 'translateX(-50%)' } },
+                        sheen: { to: { backgroundPosition: '200% center' } },
+                        blob: { '0%,100%': { transform: 'translate(0,0) scale(1)' }, '50%': { transform: 'translate(4vw,-3vh) scale(1.12)' } }
+                    },
+                    animation: {
+                        marquee: 'marquee 45s linear infinite',
+                        sheen: 'sheen 6s linear infinite',
+                        blob: 'blob 18s ease-in-out infinite'
+                    }
                 }
             }
         };
@@ -95,6 +103,27 @@
             font-family: "Geist Mono", monospace;
         }
 
+        ::selection {
+            background: rgba(95, 184, 168, .28);
+        }
+
+        /* shared glass surface */
+        .glass {
+            background: rgba(255, 255, 255, .62);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, .8);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 24px 60px -28px rgba(24, 24, 27, .28), 0 0 0 1px rgba(24, 24, 27, .04);
+        }
+
+        .grad-text {
+            background: linear-gradient(90deg, #3d8f81, #6b78d6, #3d8f81);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
         /* ================= 3D background canvas ================= */
         #scene {
             position: fixed;
@@ -137,8 +166,8 @@
 
         .brand-logo {
             display: block;
-            width: 40px;
-            height: auto;
+            width: 38px;
+            height: 38px;
         }
 
 
@@ -170,13 +199,41 @@
         }
 
         .pill-btn.dark {
-            background: var(--ink);
+            background: linear-gradient(180deg, #3f3f46, var(--ink) 55%);
             color: #fff;
             border-color: var(--ink);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .18) inset, 0 10px 24px -10px rgba(61, 143, 129, .55);
         }
 
         .pill-btn.dark:hover {
-            background: #3f3f46;
+            background: linear-gradient(180deg, #52525b, #27272a 55%);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .18) inset, 0 14px 30px -10px rgba(61, 143, 129, .6);
+        }
+
+        .pill-btn .fa-arrow-right {
+            font-size: 12px;
+            transition: transform .25s;
+        }
+
+        .pill-btn:hover .fa-arrow-right {
+            transform: translateX(3px);
+        }
+
+        /* top navigation (desktop) */
+        .nav-link {
+            position: relative;
+            z-index: 1;
+            padding: 6px 13px;
+            border-radius: 999px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--muted);
+            transition: color .25s;
+        }
+
+        .nav-link:hover,
+        .nav-link.on {
+            color: var(--ink);
         }
 
         .dots {
@@ -269,10 +326,33 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: -.2px;
+            letter-spacing: -.5px;
             pointer-events: none;
+        }
+
+        .sec-title .eyebrow {
+            display: block;
+            font-family: "Geist Mono", monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #3d8f81;
+            margin-bottom: 2px;
+        }
+
+        /* desktop: the top nav owns the first row, so titles and content start lower */
+        @media (min-width: 1024px) {
+            section {
+                padding-top: 120px;
+            }
+
+            .sec-title {
+                top: 74px;
+                font-size: 26px;
+            }
         }
 
         .content {
@@ -328,7 +408,7 @@
             align-items: center;
             gap: 12px;
             text-align: center;
-            max-width: 620px;
+            max-width: 760px;
         }
 
         .hello {
@@ -353,10 +433,10 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(30px, 3.4vw, 42px);
-            font-weight: 500;
-            letter-spacing: -.8px;
-            line-height: 1.15;
+            font-size: clamp(36px, 4.6vw, 62px);
+            font-weight: 600;
+            letter-spacing: -.035em;
+            line-height: 1.05;
         }
 
         /* hero title: 3D extruded letters that flip in one by one */
@@ -433,10 +513,10 @@
 
         .typed {
             font-size: 16.5px;
-            color: var(--ink-2);
-            line-height: 1.6;
-            max-width: 470px;
-            min-height: 5.2em;
+            color: var(--muted);
+            line-height: 1.65;
+            max-width: 540px;
+            min-height: 5em;
         }
 
         .typed::after {
@@ -468,9 +548,8 @@
         .panel {
             width: 100%;
             max-width: 880px;
-            background: var(--panel);
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: 24px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -482,6 +561,9 @@
             display: flex;
             gap: 4px;
             padding: 4px;
+            border-radius: 999px;
+            background: rgba(228, 228, 231, .7);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .06) inset;
         }
 
         .tab {
@@ -489,11 +571,17 @@
             z-index: 1;
             border: 0;
             background: none;
-            padding: 6px 16px;
+            padding: 7px 18px;
             border-radius: 999px;
             cursor: pointer;
-            color: var(--ink-2);
-            font-size: 15px;
+            color: var(--muted);
+            font-size: 14.5px;
+            font-weight: 500;
+            transition: color .3s;
+        }
+
+        .tab[aria-selected="true"] {
+            color: var(--ink);
         }
 
         .tab-pill {
@@ -504,7 +592,7 @@
             width: 0;
             border-radius: 999px;
             background: #fff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 12px -4px rgba(0, 0, 0, .08);
             transition: left .4s cubic-bezier(.3, .8, .3, 1), width .4s cubic-bezier(.3, .8, .3, 1);
         }
 
@@ -584,10 +672,27 @@
             box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
         }
 
+        .flip .face.front {
+            background: linear-gradient(180deg, #fff, #fafafa);
+            transition: box-shadow .3s, border-color .3s;
+        }
+
+        .flip:hover .face.front {
+            border-color: color-mix(in srgb, var(--c) 45%, #e4e4e7);
+            box-shadow: 0 14px 28px -14px color-mix(in srgb, var(--c) 70%, transparent);
+        }
+
         .flip .face.front>i {
-            font-size: 30px;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            font-size: 24px;
             color: var(--c);
-            margin-bottom: 20px;
+            background: color-mix(in srgb, var(--c) 13%, #fff);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent) inset;
+            margin-bottom: 22px;
         }
 
         .flip .face.front>.lbl {
@@ -603,7 +708,7 @@
 
         .face.back {
             transform: rotateY(180deg);
-            background: linear-gradient(135deg, var(--dark-1), var(--dark-2));
+            background: radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, var(--c, #5fb8a8) 55%, #18181b), var(--dark-2) 70%);
             color: #fff;
             font-size: 12.5px;
             line-height: 1.45;
@@ -677,7 +782,32 @@
         }
 
         .pcard .front {
-            box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .25);
+            border-color: rgba(24, 24, 27, .07);
+            box-shadow: 0 30px 60px -24px rgba(24, 24, 27, .35), 0 12px 30px -18px color-mix(in srgb, var(--c) 60%, transparent);
+        }
+
+        .pimg::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(9, 9, 11, .28));
+            pointer-events: none;
+        }
+
+        .pcard .kicker {
+            color: color-mix(in srgb, var(--c) 75%, #18181b);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pcard .kicker::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--c);
         }
 
         .pimg {
@@ -864,11 +994,12 @@
         }
 
         .arrow {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             border: 0;
-            background: #27272a;
+            background: linear-gradient(180deg, #3f3f46, #18181b);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 8px 18px -8px rgba(24, 24, 27, .5);
             color: #fff;
             cursor: pointer;
             display: grid;
@@ -1206,16 +1337,22 @@
         }
 
         .t-date {
-            text-align: right;
-            padding-right: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #4b5563;
-            margin-top: 6px;
+            justify-self: end;
+            margin-right: 14px;
+            font-family: "Geist Mono", monospace;
+            font-size: 12px;
+            font-weight: 500;
+            color: #3d8f81;
+            background: rgba(95, 184, 168, .12);
+            border: 1px solid rgba(95, 184, 168, .25);
+            padding: 4px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
         }
 
         .t-node {
-            border-left: 1px solid #d1d5db;
+            border-left: 2px solid transparent;
+            border-image: linear-gradient(180deg, transparent, #5fb8a8 25%, #8f9ce8 75%, transparent) 1;
             padding: 20px 0;
         }
 
@@ -1224,7 +1361,8 @@
             height: 64px;
             margin-left: 8px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d4d4d8, #f4f4f5);
+            background: #fff;
+            box-shadow: 0 0 0 1px #e4e4e7, 0 10px 24px -10px rgba(24, 24, 27, .3);
             display: grid;
             place-items: center;
         }
@@ -1263,33 +1401,48 @@
         }
 
         .t-text {
-            padding-left: 14px;
+            margin-left: 14px;
+            padding: 14px 18px;
+            border-radius: 16px;
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .t-row:hover .t-text {
+            transform: translateX(4px);
         }
 
         .t-text b {
-            display: inline-block;
-            font-size: 18px;
+            display: block;
+            font-size: 17px;
             font-weight: 600;
-            font-style: italic;
-            border-bottom: 1px solid var(--ink);
+            letter-spacing: -.3px;
             line-height: 1.3;
         }
 
         .t-text small {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        .t-text small::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
         }
 
         /* ================= Contact ================= */
         .contact-card {
             width: 100%;
             max-width: 560px;
-            background: var(--card);
-            border-radius: 16px;
-            padding: 26px;
-            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -1321,13 +1474,17 @@
             padding: 8px 13px;
             border-radius: 999px;
             border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .7);
             font-size: 13.5px;
-            transition: border-color .2s, background .2s;
+            font-weight: 500;
+            transition: border-color .2s, background .2s, transform .2s, color .2s;
         }
 
         .links a:hover {
-            border-color: #a1a1aa;
-            background: #fafafa;
+            border-color: rgba(95, 184, 168, .6);
+            background: #fff;
+            color: #2f7a6d;
+            transform: translateY(-1px);
         }
 
         form {
@@ -1346,18 +1503,19 @@
             font: inherit;
             font-size: 14.5px;
             color: var(--ink);
-            background: #fafafa;
+            background: rgba(255, 255, 255, .85);
             border: 1px solid var(--line);
             border-radius: 12px;
-            padding: 11px 13px;
+            padding: 12px 14px;
             outline: none;
-            transition: border-color .2s, box-shadow .2s;
+            transition: border-color .2s, box-shadow .2s, background .2s;
         }
 
         input:focus,
         textarea:focus {
-            border-color: #a1a1aa;
-            box-shadow: 0 0 0 4px rgba(24, 24, 27, .06);
+            background: #fff;
+            border-color: #5fb8a8;
+            box-shadow: 0 0 0 4px rgba(95, 184, 168, .16);
         }
 
         textarea {
@@ -1370,7 +1528,8 @@
             padding: 12px;
             border-radius: 12px;
             border: 0;
-            background: var(--ink);
+            background: linear-gradient(180deg, #3f3f46, var(--ink) 55%);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 12px 24px -12px rgba(61, 143, 129, .7);
             color: #fff;
             font-weight: 500;
             cursor: pointer;
@@ -1378,11 +1537,23 @@
             justify-content: center;
             gap: 8px;
             align-items: center;
-            transition: background .2s;
+            transition: box-shadow .25s, transform .15s;
         }
 
         .send:hover {
-            background: #3f3f46;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .15) inset, 0 16px 30px -12px rgba(61, 143, 129, .8);
+        }
+
+        .send:hover i {
+            transform: translate(2px, -2px);
+        }
+
+        .send i {
+            transition: transform .25s;
+        }
+
+        .send:active {
+            transform: scale(.98);
         }
 
         .copyright {
@@ -1424,6 +1595,10 @@
             .sec-title {
                 top: 62px;
                 font-size: 18px;
+            }
+
+            .sec-title .eyebrow {
+                display: none;
             }
 
             .pill-btn {
@@ -1511,7 +1686,15 @@
             }
 
             .t-text {
-                padding-left: 10px;
+                margin-left: 10px;
+                padding: 10px 12px;
+            }
+
+            .t-date {
+                margin-right: 8px;
+                padding: 3px 7px;
+                white-space: normal;
+                text-align: center;
             }
 
             .t-text b {
@@ -1578,12 +1761,38 @@
     <!-- soft glow that follows the cursor, under the 3D canvas -->
     <div id="spot" aria-hidden="true"
         class="tw-pointer-events-none tw-fixed tw-inset-0 tw-z-0 tw-hidden [@media(hover:hover)]:tw-block"
-        style="background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 35%), rgba(95, 184, 168, .14), rgba(143, 156, 232, .06) 40%, transparent 70%)">
+        style="background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 35%), rgba(95, 184, 168, .14), rgba(95, 184, 168, .05) 40%, transparent 70%)">
+    </div>
+    <!-- ambient backdrop: dot grid + slow colour blobs -->
+    <div aria-hidden="true" class="tw-pointer-events-none tw-fixed tw-inset-0 tw-z-0 tw-overflow-hidden">
+        <div class="tw-absolute tw-inset-0 tw-opacity-60 [background-image:radial-gradient(#d4d4d8_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]"></div>
+        <!-- soft glow that slides to whichever side the section's 3D model is on -->
+        <div id="glow"
+            class="tw-absolute tw-left-1/2 tw-top-[33%] tw-h-[min(48vw,620px)] tw-w-[min(48vw,620px)] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transition-[left,top] tw-duration-[1200ms] tw-ease-out">
+            <div class="tw-h-full tw-w-full tw-rounded-full tw-bg-teal-200/35 tw-blur-3xl tw-animate-blob"></div>
+        </div>
     </div>
     <div id="scene" aria-hidden="true"></div>
 
+    <!-- scroll progress -->
+    <div class="tw-fixed tw-inset-x-0 tw-top-0 tw-z-30 tw-h-[2px]" aria-hidden="true">
+        <div id="progress" class="tw-h-full tw-w-0 tw-bg-gradient-to-r tw-from-teal-400 tw-via-teal-500 tw-to-indigo-400 tw-transition-[width] tw-duration-500"></div>
+    </div>
+
     <header class="topbar">
-        <a href="#home" class="brand" data-go="0"><img class="brand-logo" src="img/logo.svg" alt="" width="40" height="33"><span>Farhat Hussain</span></a>
+        <a href="#home" class="brand tw-group" data-go="0">
+            <img class="brand-logo tw-transition-transform tw-duration-500 group-hover:tw-rotate-[-6deg] group-hover:tw-scale-105 tw-drop-shadow-[0_8px_14px_rgba(24,24,27,.28)]"
+                src="img/logo.svg" alt="" width="38" height="38">
+            <span class="tw-flex tw-flex-col tw-leading-none">
+                <span class="tw-text-[15px] tw-font-semibold tw-tracking-[-.02em] tw-text-zinc-900">Farhat Hussain</span>
+                <span class="mono tw-mt-1 tw-text-[9.5px] tw-font-medium tw-uppercase tw-tracking-[.18em] tw-text-zinc-500">Full Stack Developer</span>
+            </span>
+        </a>
+        <nav id="topnav" aria-label="Primary"
+            class="glass tw-absolute tw-left-1/2 tw-top-3.5 tw-hidden -tw-translate-x-1/2 tw-items-center tw-gap-0.5 tw-rounded-full tw-p-1 lg:tw-flex">
+            <span id="navPill"
+                class="tw-absolute tw-bottom-1 tw-top-1 tw-rounded-full tw-bg-white tw-shadow-[0_1px_3px_rgba(0,0,0,.08),0_6px_16px_-6px_rgba(0,0,0,.12)] tw-transition-all tw-duration-500 tw-ease-out"></span>
+        </nav>
         <div class="top-actions">
             <a href="files/Farhat_Hussain_Full_Stack_Developer_Resume.pdf" target="_blank" rel="noopener" class="pill-btn"><i
                     class="fa-regular fa-file-lines"></i> Resume</a>
@@ -1591,7 +1800,7 @@
         </div>
     </header>
 
-    <nav class="dots" id="dots" aria-label="Sections"></nav>
+    <nav class="dots lg:tw-hidden" id="dots" aria-label="Sections"></nav>
 
     <main id="main" tabindex="-1">
         <!-- 0 · Hero -->
@@ -1611,10 +1820,18 @@
                     data-text="I build production-ready ERP, CRM and web apps with Node.js, Express, Next.js, Tailwind, PostgreSQL and MongoDB, from clean APIs and databases to interfaces people enjoy using.">
                 </p>
                 <div class="hero-ctas">
-                    <a href="#projects" class="pill-btn dark tw-shadow-lg tw-shadow-teal-600/25" data-go="2"><i class="fa-solid fa-layer-group"></i> View
-                        projects</a>
-                    <a href="#contact" class="pill-btn" data-go="5"><i class="fa-regular fa-paper-plane"></i> Get in
+                    <a href="#projects" class="pill-btn dark !tw-px-5 !tw-py-2.5" data-go="2">View my work <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#contact" class="pill-btn !tw-px-5 !tw-py-2.5" data-go="5"><i class="fa-regular fa-paper-plane"></i> Get in
                         touch</a>
+                    <span class="tw-hidden tw-items-center tw-gap-1.5 tw-pl-1 sm:tw-flex">
+                        <a href="https://github.com/farhathusssain" target="_blank" rel="noopener" aria-label="GitHub"
+                            class="tw-grid tw-h-10 tw-w-10 tw-place-items-center tw-rounded-full tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-text-zinc-600 tw-backdrop-blur tw-transition hover:-tw-translate-y-0.5 hover:tw-border-zinc-300 hover:tw-text-zinc-900"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/farhathussainchanna/" target="_blank" rel="noopener" aria-label="LinkedIn"
+                            class="tw-grid tw-h-10 tw-w-10 tw-place-items-center tw-rounded-full tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/80 tw-text-zinc-600 tw-backdrop-blur tw-transition hover:-tw-translate-y-0.5 hover:tw-border-[#0a66c2]/40 hover:tw-text-[#0a66c2]"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
+                    </span>
                 </div>
             </div>
             <!-- tech marquee -->
@@ -1629,7 +1846,7 @@
             <h2 class="sec-title">Skills</h2>
             <div class="slot"></div>
             <div class="content">
-                <div class="panel" data-tilt="3">
+                <div class="panel glass" data-tilt="3">
                     <div class="tabs" role="tablist">
                         <span class="tab-pill" id="tabPill"></span>
                         <button class="tab" role="tab" aria-selected="true" data-tab="services">Services</button>
@@ -1720,13 +1937,13 @@
                         <div class="t-date">2024 – Present</div>
                         <div class="t-node"><span class="t-icon"><i class="fiverr" style="--c:#1dbf73"
                                     aria-hidden="true">fi</i></span></div>
-                        <div class="t-text"><b>Full Stack Developer</b><small>Fiverr · Freelance</small></div>
+                        <div class="t-text glass"><b>Full Stack Developer</b><small>Fiverr · Freelance</small></div>
                     </div>
                     <div class="t-row">
                         <div class="t-date">Internship</div>
                         <div class="t-node"><span class="t-icon"><img src="img/anet-logo.svg"
                                     alt="A Net Cyber Solutions logo"></span></div>
-                        <div class="t-text"><b>Full Stack Intern</b><small>ANET Cyber Solutions</small></div>
+                        <div class="t-text glass"><b>Full Stack Intern</b><small>ANET Cyber Solutions</small></div>
                     </div>
                 </div>
             </div>
@@ -1738,8 +1955,11 @@
             <h2 class="sec-title">Contact</h2>
             <div class="slot"></div>
             <div class="content">
-                <div class="contact-card tw-shadow-2xl tw-shadow-zinc-900/10" data-tilt="5">
-                    <h2>Let's build something together.</h2>
+                <div class="contact-card glass" data-tilt="5">
+                    <span class="max-md:tw-hidden tw-inline-flex tw-w-fit tw-items-center tw-gap-2 tw-rounded-full tw-bg-teal-50 tw-px-2.5 tw-py-1 tw-text-[11.5px] tw-font-medium tw-text-teal-800 tw-ring-1 tw-ring-teal-200/70">
+                        <span class="tw-h-1.5 tw-w-1.5 tw-rounded-full tw-bg-teal-500"></span> Open to freelance &amp; full-time roles
+                    </span>
+                    <h2>Let's build something <span class="grad-text tw-animate-sheen">together.</span></h2>
                     <p>Have a project, a role or a messy workflow to fix? Send me a message.</p>
                     <div class="links">
                         <a href="mailto:farhathussaincs@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
@@ -1784,21 +2004,43 @@
             dotsNav.appendChild(b);
         });
         const dotBtns = [...dotsNav.children];
+        const topnav = document.getElementById('topnav'), navPill = document.getElementById('navPill');
+        sections.forEach((s, i) => {
+            const a = document.createElement('a');
+            a.href = '#' + s.id; a.className = 'nav-link'; a.textContent = s.dataset.title;
+            a.onclick = e => { e.preventDefault(); goTo(i); };
+            topnav.appendChild(a);
+        });
+        const navLinks = [...topnav.querySelectorAll('.nav-link')];
+        const moveNavPill = () => {
+            const l = navLinks[Math.max(0, activeIdx)];
+            navPill.style.left = l.offsetLeft + 'px';
+            navPill.style.width = l.offsetWidth + 'px';
+        };
+        const progress = document.getElementById('progress'), glow = document.getElementById('glow');
         const goTo = i => main.scrollTo({ top: i * main.clientHeight, behavior: reduce ? 'auto' : 'smooth' });
         document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); goTo(+a.dataset.go); }));
 
         let activeIdx = -1;
         let onSection = () => { };
         function updateActive() {
+            progress.style.width = clamp(main.scrollTop / (main.scrollHeight - main.clientHeight)) * 100 + '%';
             const i = Math.round(main.scrollTop / main.clientHeight);
             if (i === activeIdx) return;
             activeIdx = i;
             onSection(i);
             sections.forEach((s, k) => s.classList.toggle('active', k === i));
             dotBtns.forEach((b, k) => b.classList.toggle('on', k === i));
+            navLinks.forEach((l, k) => l.classList.toggle('on', k === i));
+            moveNavPill();
+            // follow the 3D model: centre for the hero, then left / right per section (phones: always centred above the content)
+            const side = innerWidth < 768 ? .5 : [.5, .19, .82, .19, .82, .2][i] ?? .5;
+            glow.style.left = side * 100 + '%';
+            glow.style.top = (i === 0 || innerWidth < 768 ? 33 : 52) + '%';
         }
         main.addEventListener('scroll', updateActive, { passive: true });
-        addEventListener('resize', () => { main.scrollTop = activeIdx * main.clientHeight; });
+        addEventListener('resize', () => { main.scrollTop = activeIdx * main.clientHeight; moveNavPill(); });
+        if (document.fonts) document.fonts.ready.then(moveNavPill);
         updateActive();
         main.focus({ preventScroll: true });
 
@@ -1946,12 +2188,7 @@
         const esc = s => s.replace(/&/g, '&amp;');
         const ptrack = document.getElementById('ptrack');
         ptrack.innerHTML = projects.map((p, i) => {
-            const btns = [];
-            if (p.live) btns.push(`<a class="pbtn" href="${p.live}" target="_blank" rel="noopener">Visit project</a>`);
-            if (p.code) btns.push(`<a class="pbtn ${p.live ? 'ghost' : ''}" href="${p.code}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>`);
-            if (p.demo) btns.push(`<button class="pbtn" data-go-contact>Ask for a demo</button>`);
-            if (!btns.length) btns.push(`<button class="pbtn" data-go-contact>Ask me about it</button>`);
-            return `<div class="pslide"><div class="pcard" data-tilt="8" role="group" aria-label="${p.title}, project ${i + 1} of ${projects.length}">
+            return `<div class="pslide"><div class="pcard" style="--c:${p.c}" data-tilt="8" role="group" aria-label="${p.title}, project ${i + 1} of ${projects.length}">
                 <div class="pcard-in">
                     <div class="face front">
                         <div class="pimg">${p.img ? `<img src="${esc(p.img)}" alt="${p.title} screenshot" loading="lazy">` : posters[p.poster]}</div>
@@ -1964,7 +2201,6 @@
                             <span class="stat"><i class="${p.stat[0]}"></i> ${p.stat[1]}</span></div>
                         <p class="pdesc">${p.desc}</p>
                         <div class="tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-                        <div class="pbtn-row">${btns.join('')}</div>
                         <button class="unflip">← BACK</button>
                     </div>
                 </div></div></div>`;
@@ -1998,7 +2234,6 @@
         ptrack.addEventListener('click', e => {
             const card = e.target.closest('.pcard');
             if (card && cards.indexOf(card) !== pIdx) { e.preventDefault(); return showProject(cards.indexOf(card)); }
-            if (e.target.closest('[data-go-contact]')) { e.stopPropagation(); return goTo(5); }
             if (e.target.closest('a')) return;
             if (!card) return;
             if (e.target.closest('.unflip')) card.classList.remove('on');
@@ -2037,8 +2272,12 @@
         // ---------- Tailwind touches: tech marquee, title underlines, cursor glow ----------
         const chips = skills.tech.map(([name, icon, color]) => `<span class="tw-inline-flex tw-items-center tw-gap-2 tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-border-zinc-200 tw-bg-white/70 tw-px-3.5 tw-py-1.5 tw-text-[13px] tw-font-medium tw-text-zinc-700 tw-shadow-sm tw-backdrop-blur"><i class="${icon}" style="color:${color}"></i>${name}</span>`).join('');
         document.getElementById('marquee').innerHTML = chips + chips;
-        document.querySelectorAll('.sec-title').forEach(t => t.insertAdjacentHTML('beforeend',
-            '<span class="tw-mx-auto tw-mt-1.5 tw-block tw-h-[3px] tw-w-10 tw-rounded-full tw-bg-gradient-to-r tw-from-teal-400 tw-to-indigo-400"></span>'));
+        document.querySelectorAll('.sec-title').forEach(t => {
+            const n = sections.indexOf(t.closest('section'));
+            t.insertAdjacentHTML('afterbegin', `<span class="eyebrow">${String(n).padStart(2, '0')} / ${String(sections.length - 1).padStart(2, '0')}</span>`);
+            t.insertAdjacentHTML('beforeend',
+                '<span class="tw-mx-auto tw-mt-2 tw-block tw-h-[3px] tw-w-10 tw-rounded-full tw-bg-gradient-to-r tw-from-teal-400 tw-to-indigo-400"></span>');
+        });
         const spot = document.getElementById('spot');
         addEventListener('pointermove', e => {
             spot.style.setProperty('--sx', e.clientX + 'px');
