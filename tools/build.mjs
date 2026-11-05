@@ -1,15 +1,4 @@
-#!/usr/bin/env node
-// Regenerates the two generated blocks in index.html. Run this after adding a new
-// tw-* class or a new Font Awesome icon:
-//
-//     node tools/build.mjs
-//
-// 1. Tailwind: compiles only the tw-* classes the page uses (replaces the CDN compiler).
-//    It stays AFTER the hand-written <style>, the same cascade order the CDN produced.
-// 2. Icons: cuts Font Awesome down to the icons the page uses, into fonts/fa-*.woff2.
-//
-// Dependencies install into the OS temp folder, never into this project, so there is
-// no node_modules here to get uploaded by accident when deploying the folder.
+
 
 import { execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
