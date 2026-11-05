@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="A Net Cyber Solutions">
+  <circle cx="32" cy="32" r="31" fill="#fff"/>
+  <!-- brush ring, open at the upper right -->
+  <path d="M40 8.6A24 24 0 1 0 55.4 26" fill="none" stroke="#1590a8" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M55.4 26q1.6 4.4 .4 8" fill="none" stroke="#1590a8" stroke-width="3" stroke-linecap="round"/>
+  <!-- script A -->
+  <g fill="none" stroke="#f47a1f" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 44C27 36 30 27 34 20c1.6 7 2.6 14 4.6 21.5q.8 2.6 3.4 0" stroke-width="3.6"/>
+    <path d="M22 35.5c6-.6 12-.4 20-1.6" stroke-width="2.8"/>
+  </g>
+</svg>
