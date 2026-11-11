@@ -37,9 +37,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script" fetchpriority="low">
+    <!-- fonts load without blocking first paint (text shows in the fallback font, then swaps) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"></noscript>
 
     <!-- Only the icons this page uses -->
     <style>/* Font Awesome Free 7.0.0 subset | fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT) */@font-face{font-family:"Font Awesome 7 Free";font-style:normal;font-weight:900;font-display:block;src:url(data:font/woff2;base64,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) format("woff2")}@font-face{font-family:"Font Awesome 7 Free";font-style:normal;font-weight:400;font-display:block;src:url(data:font/woff2;base64,d09GMk9UVE8AAAOcAAkAAAAABlgAAANYAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYVlBmAAPAE2AiQDDAQGBYMoByAbtAVRlA1GiuzLBG7u5gKoIWwk0jpqRoJCEI+M/jrV0bsKb3Rt8P/81c59f2ZalhXDdm7nOG3EWgkjTCigNM/+/xzLf5lc/6pTo9LunU0HPOEBDbxARzS8e0gskzgcTIDyq7U37MqoVZmQ/i5MLjEGkO7mE7zDPSSUcUfoe6s60B48U7zqM74YPOb/fr5ufW1nth0vfMBT6qBKqqJsisL5BKL6F/AfnDfxIEN5KF8qggBJrfRmfYxdRhcL8aT3o5Hp9yIoEKRzE8KAiEDUQMw9hUDyk66TfPPy4zyPrD5CQU4MoCqP2wcCEVCxoiVc1D8L/WvnsRP7qg+PxjHjWk/YeUM2CY1QmpWmj+fHaInX5zZbrQ6f1W13ofZmEqQSfJnKj55ROi/QPaFLO9DhrOQVSg8+CY3pujnkLwAA+G9N+V/UkAxxSfmH5N85pjmZK0kiL8hnOtnWsM2DpAMmZnZx5zhMdODPTcEXYpV5kMteeucLaBw7dOgYFF8FHcfBKYwpLBUTRqenRyFcqMYwdRDHYQ7Ukvw3jktz0iAUETrODFyB+laRS4ASfIGAzyRbQQk0YGOrgpNCKtveih/n4hn9K48aQAae7dip8IGk+IPuxfAwehWWZhF7Tw6fV20FIdPJkziPAO/qtzew171DicUWadWCPT8KJPP0J7JVG3g8MApmu2cnFLtAO7F9X9NOz3bTgkvjyJrymHWBb3Cx5kZuIklfImrgauJKdmtpFP2vaz6SQ5xOS2VSrrm9nD5JO20yO327oHZj59ZNuxTXO0HasC263W+rgO3Z4A2rpaDUkwl5DdYorN1qdoaUpZ1AP22iwDCAVTpb0PKCETo8XNF3WP9GCT43XtRD/xD0ZgUQ7OMYApDhDqgiIYwnM4JHGmGrbX4V0JY/ltdb9j5L3FNQma96C89/lSGh8LUH3uL/+7320g+QxFawb+NjT/jFuErw7E5PSGArHRzvpklw4lFBCpgnsySJpT+SkedDcmy8FwbjpJCY9fGIMeBgY+0o5mLkYGNlxCNtn1KNmNSdMnGy1LPXNrJ3MFvzPeTl42ZmZeXgY+Vm54K0+5ZC3onOOzj8kIcxbaW6NUYPvBUtLDTh5N587LU6YWPrZm9mYur4nt4GdNDWT8ID) format("woff2")}@font-face{font-family:"Font Awesome 7 Brands";font-style:normal;font-weight:400;font-display:block;src:url(data:font/woff2;base64,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) format("woff2")}.fa,.fa-brands,.fa-classic,.fa-regular,.fa-solid,.fab,.far,.fas{--_fa-family:var(--fa-family,var(--fa-style-family,"Font Awesome 7 Free"));-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:var(--fa-display,inline-block);font-family:var(--_fa-family);font-feature-settings:normal;font-style:normal;font-synthesis:none;font-variant:normal;font-weight:var(--fa-style,900);line-height:1;text-align:center;text-rendering:auto;width:var(--fa-width,1.25em)}:is(.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands,.fa-classic,.fa):before{content:var(--fa);content:var(--fa)/""}.fa-n{--fa:"N"}.fa-t{--fa:"T"}.fa-chart-column{--fa:"\e0e3"}.fa-display{--fa:"\e163"}.fa-chart-simple{--fa:"\e473"}.fa-book{--fa:"\f02d"}.fa-image{--fa:"\f03e"}.fa-droplet{--fa:"\f043"}.fa-chevron-left{--fa:"\f053"}.fa-chevron-right{--fa:"\f054"}.fa-arrow-right{--fa:"\f061"}.fa-leaf{--fa:"\f06c"}.fa-globe{--fa:"\f0ac"}.fa-users{--fa:"\f0c0"}.fa-link{--fa:"\f0c1"}.fa-table{--fa:"\f0ce"}.fa-envelope{--fa:"\f0e0"}.fa-bolt{--fa:"\f0e7"}.fa-hospital{--fa:"\f0f8"}.fa-code{--fa:"\f121"}.fa-file-lines{--fa:"\f15c"}.fa-building{--fa:"\f1ad"}.fa-cube{--fa:"\f1b2"}.fa-database{--fa:"\f1c0"}.fa-file-pdf{--fa:"\f1c1"}.fa-file-excel{--fa:"\f1c3"}.fa-paper-plane{--fa:"\f1d8"}.fa-plug{--fa:"\f1e6"}.fa-scale-balanced{--fa:"\f24e"}.fa-microchip{--fa:"\f2db"}.fa-utensils{--fa:"\f2e7"}.fa-rotate{--fa:"\f2f1"}.fa-desktop{--fa:"\f390"}.fa-mobile-screen{--fa:"\f3cf"}.fa-route{--fa:"\f4d7"}.fa-seedling{--fa:"\f4d8"}.fa-user-shield{--fa:"\f505"}.fa-users-gear{--fa:"\f509"}.fa-diagram-project{--fa:"\f542"}.fa-robot{--fa:"\f544"}.fa-file-export{--fa:"\f56e"}.fa-file-invoice-dollar{--fa:"\f571"}.fa-map-location-dot{--fa:"\f5a0"}.fa-brain{--fa:"\f5dc"}.fa-layer-group{--fa:"\f5fd"}.fa-network-wired{--fa:"\f6ff"}.fa-wind{--fa:"\f72e"}:host,:root{--fa-family-brands:"Font Awesome 7 Brands";--fa-font-brands:normal 400 1em/1 var(--fa-family-brands)}.fa-brands,.fa-classic.fa-brands,.fab{--fa-family:var(--fa-family-brands);--fa-style:400}.fa-linkedin{--fa:"\f08c"}.fa-github{--fa:"\f09b"}.fa-linkedin-in{--fa:"\f0e1"}.fa-instagram{--fa:"\f16d"}.fa-js{--fa:"\f3b8"}.fa-node-js{--fa:"\f3d3"}.fa-python{--fa:"\f3e2"}.fa-react{--fa:"\f41b"}.fa-angular{--fa:"\f420"}.fa-java{--fa:"\f4e4"}:host,:root{--fa-font-regular:normal 400 1em/1 var(--fa-family-classic)}.fa-regular,.far{--fa-style:400}:host,:root{--fa-family-classic:"Font Awesome 7 Free";--fa-font-solid:normal 900 1em/1 var(--fa-family-classic);--fa-style-family-classic:var(--fa-family-classic)}.fa-solid{--fa-style:900}</style>
@@ -165,6 +165,16 @@
         }
 
         .lowfx #aurora { filter: blur(40px); }
+
+        /* Phones / touch: a radial mask gives the same soft edge as blur() without re-blurring
+           a full-screen layer on every animation frame */
+        @media (max-width: 767px), (pointer: coarse) {
+            #aurora, #aurora~#glow>div { filter: none; }
+            #aurora i, #aurora~#glow>div {
+                -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent);
+                mask-image: radial-gradient(closest-side, #000 20%, transparent);
+            }
+        }
 
         /* ================= 3D background canvas ================= */
         #scene {
@@ -2279,34 +2289,34 @@
             { title: 'SSB Reporting', kicker: 'School Specific Budget · Fix', poster: 'ssb', icon: 'fa-solid fa-file-invoice-dollar', c: '#e8a46c', stat: ['fa-solid fa-file-export', 'Excel + PDF'],
               desc: 'An existing School Specific Budget system whose reporting area I fixed. All records now load into one table and can be downloaded as Excel or PDF.',
               tags: ['Reporting', 'Excel export', 'PDF export'], demo: true },
-            { title: 'AI Chatbot', kicker: 'Full stack · AI', img: 'projects/ai-chatbot-chat.png', icon: 'fa-solid fa-robot', c: '#a78bfa', stat: ['fa-solid fa-brain', 'RAG'],
+            { title: 'AI Chatbot', kicker: 'Full stack · AI', img: 'projects/ai-chatbot-chat.webp', icon: 'fa-solid fa-robot', c: '#a78bfa', stat: ['fa-solid fa-brain', 'RAG'],
               desc: 'An AI assistant powered by the Groq API. Past conversations are stored as vector embeddings with pgvector in Supabase, so the bot retrieves relevant history before answering the next message.',
               tags: ['Next.js', 'Tailwind', 'Node.js', 'Express', 'Supabase', 'pgvector', 'Groq'], code: GH },
-            { title: 'URL Shortener', kicker: 'Full stack · Analytics', img: 'projects/url-shortener-home.png', icon: 'fa-solid fa-link', c: '#60a5fa', stat: ['fa-solid fa-chart-simple', 'Clicks'],
+            { title: 'URL Shortener', kicker: 'Full stack · Analytics', img: 'projects/url-shortener-home.webp', icon: 'fa-solid fa-link', c: '#60a5fa', stat: ['fa-solid fa-chart-simple', 'Clicks'],
               desc: 'Converts long URLs into short links of under 7 characters, redirects visitors to the original address and tracks each click with its referrer.',
               tags: ['Next.js', 'Tailwind', 'Node.js', 'Express', 'MongoDB'], code: GH },
             { title: 'Lab Monitoring System', kicker: 'Web · Systems', poster: 'lab', icon: 'fa-solid fa-network-wired', c: '#38bdf8', stat: ['fa-solid fa-display', 'Real-time'],
               desc: 'Remote software deployment and lab control: push files to client machines by IP, run actions (shutdown, restart, lock, USB control) and watch CPU, RAM, storage and online status live.',
               tags: ['Python', 'Flask', 'MySQL', 'WinRM', 'Sockets', 'Bootstrap'], code: GH },
-            { title: 'Food Delivery Backend', kicker: 'Backend · REST API', img: 'projects/springboot.png', icon: 'fa-solid fa-utensils', c: '#77b55a', stat: ['fa-solid fa-layer-group', 'Layered'],
+            { title: 'Food Delivery Backend', kicker: 'Backend · REST API', img: 'projects/springboot.webp', icon: 'fa-solid fa-utensils', c: '#77b55a', stat: ['fa-solid fa-layer-group', 'Layered'],
               desc: 'A RESTful backend for a food delivery platform with Admin and User roles, built on a clean Controller, Service and Repository architecture.',
               tags: ['Spring Boot', 'Spring Data JPA', 'MySQL', 'REST'], code: GH + '/food-delivery-backend-springboot' },
-            { title: 'PixStock', kicker: 'Web · Frontend', img: 'projects/pixstock.jpeg', icon: 'fa-solid fa-image', c: '#4fb3c9', stat: ['fa-solid fa-globe', 'Live'],
+            { title: 'PixStock', kicker: 'Web · Frontend', img: 'projects/pixstock.webp', icon: 'fa-solid fa-image', c: '#4fb3c9', stat: ['fa-solid fa-globe', 'Live'],
               desc: 'A stock-media website for browsing high-quality photos, vectors and illustrations, with a responsive layout and search-first hero.',
               tags: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'], live: 'https://farhathusssain.github.io/PixStock/', code: GH + '/PixStock' },
-            { title: 'Water Management System', kicker: 'Desktop · Java', img: 'projects/WaterManagementSystem.jpeg', icon: 'fa-solid fa-droplet', c: '#60a5fa', stat: ['fa-solid fa-desktop', 'Desktop'],
+            { title: 'Water Management System', kicker: 'Desktop · Java', img: 'projects/WaterManagementSystem.webp', icon: 'fa-solid fa-droplet', c: '#60a5fa', stat: ['fa-solid fa-desktop', 'Desktop'],
               desc: 'A desktop application for managing shop-based water distribution, with printable reports.',
               tags: ['Java', 'Java Swing', 'MySQL', 'JasperReports'] },
-            { title: 'Library Management System', kicker: 'Desktop · Java', img: 'projects/LibraryManagementSystem.jpeg', icon: 'fa-solid fa-book', c: '#e8b07c', stat: ['fa-solid fa-desktop', 'Desktop'],
+            { title: 'Library Management System', kicker: 'Desktop · Java', img: 'projects/LibraryManagementSystem.webp', icon: 'fa-solid fa-book', c: '#e8b07c', stat: ['fa-solid fa-desktop', 'Desktop'],
               desc: 'Manages books, members and issue/return records for a library.',
               tags: ['Java', 'Java Swing', 'MySQL'] },
-            { title: 'Hospital Management System', kicker: 'Desktop · Java', img: 'projects/Hospitalsystem.jpeg', icon: 'fa-solid fa-hospital', c: '#ef8a7a', stat: ['fa-solid fa-desktop', 'Desktop'],
+            { title: 'Hospital Management System', kicker: 'Desktop · Java', img: 'projects/Hospitalsystem.webp', icon: 'fa-solid fa-hospital', c: '#ef8a7a', stat: ['fa-solid fa-desktop', 'Desktop'],
               desc: 'Handles patients, doctors and appointments for a hospital front desk.',
               tags: ['Java', 'JavaFX', 'MySQL'] },
-            { title: 'Plot Registration System', kicker: 'Desktop · Java', img: 'projects/Plotbuy&sale.jpeg', icon: 'fa-solid fa-map-location-dot', c: '#86c79a', stat: ['fa-solid fa-desktop', 'Desktop'],
+            { title: 'Plot Registration System', kicker: 'Desktop · Java', img: 'projects/Plotbuy&sale.webp', icon: 'fa-solid fa-map-location-dot', c: '#86c79a', stat: ['fa-solid fa-desktop', 'Desktop'],
               desc: 'Records plot buying and selling with owner details and registration history.',
               tags: ['Java', 'Java Swing', 'MySQL'] },
-            { title: 'System Control', kicker: 'Desktop · Java', img: 'projects/Systemproject.jpeg', icon: 'fa-solid fa-microchip', c: '#64748b', stat: ['fa-solid fa-desktop', 'Desktop'],
+            { title: 'System Control', kicker: 'Desktop · Java', img: 'projects/Systemproject.webp', icon: 'fa-solid fa-microchip', c: '#64748b', stat: ['fa-solid fa-desktop', 'Desktop'],
               desc: 'Shows live system details such as OS, Java version, processor count and memory usage.',
               tags: ['Java', 'Java Swing'] }
         ];
@@ -2337,7 +2347,7 @@
             return `<div class="pslide"><div class="pcard" style="--c:${p.c}" data-tilt="8" role="group" aria-label="${p.title}, project ${i + 1} of ${projects.length}">
                 <div class="pcard-in">
                     <div class="face front">
-                        <div class="pimg">${p.img ? `<img src="${esc(p.img)}" alt="${p.title} screenshot" loading="lazy" decoding="async">` : posters[p.poster]}</div>
+                        <div class="pimg">${p.img ? `<img data-src="${esc(p.img)}" alt="${p.title} screenshot" decoding="async">` : posters[p.poster]}</div>
                         <div class="pinfo"><span class="kicker">${p.kicker}</span><h3>${p.title}</h3>
                             <div class="tags">${p.tags.slice(0, 4).map(t => `<span>${t}</span>`).join('')}</div>
                             <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap for details</span></div>
@@ -2356,13 +2366,13 @@
         const cards = [...ptrack.querySelectorAll('.pcard')];
         const slides = [...ptrack.querySelectorAll('.pslide')];
         const counter = document.getElementById('counter');
+        // screenshots load only once the visitor heads towards Projects, then the current card ±2
         let pIdx = 0, pageReady = false;
         const warmProjects = () => {
-            if (navigator.connection?.saveData) return;
             const n = projects.length;
             for (let o = -2; o <= 2; o++) {
-                const img = slides[(pIdx + o + n) % n].querySelector('img');
-                if (img) { img.loading = 'eager'; img.decode().catch(() => { }); }
+                const img = slides[(pIdx + o + n) % n].querySelector('img[data-src]');
+                if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
             }
         };
         function showProject(i) {
@@ -2524,7 +2534,10 @@
                 })(t0);
             });
         }
-        onSection = i => { if (i === 3) { runCmd(tIdx); countUp(); } };
+        onSection = i => {
+            if (i >= 1 && !pageReady) { pageReady = true; warmProjects(); }
+            if (i === 3) { runCmd(tIdx); countUp(); }
+        };
         runCmd(0, true);
 
         // Keyboard: arrows move projects / terminal commands when their section is active
@@ -2562,8 +2575,8 @@
             if (!window.THREE) return;
             const host = document.getElementById('scene');
             let renderer;
-            try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { return; }
-            renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+            try { renderer = new THREE.WebGLRenderer({ antialias: !lowEnd, alpha: true, powerPreference: lowEnd ? 'low-power' : 'default' }); } catch (e) { return; }
+            renderer.setPixelRatio(maxRatio);
             host.appendChild(renderer.domElement);
 
             const scene = new THREE.Scene();
@@ -2964,7 +2977,7 @@
             const silk = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
                 transparent: true, depthWrite: false,
                 uniforms: { uT: { value: 0 }, uS: { value: 0 }, uW: { value: 0 }, uM: { value: new THREE.Vector2() }, uR: { value: new THREE.Vector2(1, 1) } },
-                defines: { OCT: mobile ? 3 : 4 },
+                defines: { OCT: lowEnd ? 3 : 4 },
                 vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, .9999, 1.); }',
                 fragmentShader: `
                     uniform float uT, uS, uW; uniform vec2 uM, uR; varying vec2 vUv;
@@ -3314,13 +3327,13 @@
                     return { x: .5, y: (top + bottom) / 2 / innerHeight, s: clamp(fit, .28, .85) };
                 });
             };
-            let A = anchors();
+            let A = anchors(), dirty = true;
 
             function resize() {
                 renderer.setSize(innerWidth, innerHeight, false);
                 camera.aspect = innerWidth / innerHeight;
                 camera.updateProjectionMatrix();
-                A = anchors();
+                A = anchors(); dirty = true;
             }
             addEventListener('resize', resize);
             resize();
@@ -3339,18 +3352,18 @@
 
             // Quality stays at full unless a device really can't keep up (under ~28 fps for
             // 1.5s+): then the marquee blur goes first, and resolution steps down after that.
-            let pixelRatio = Math.min(devicePixelRatio, 2), slowRuns = 0, sampled = 0, sampleMs = 0;
+            let pixelRatio = maxRatio, slowRuns = 0, sampled = 0, sampleMs = 0;
             function watchFrameRate(ms, now) {
                 if (ms > 250 || now - t0 < 2500) return;
                 sampleMs += ms;
                 if (++sampled < 45) return;
                 const avg = sampleMs / sampled;
                 sampled = sampleMs = 0;
-                slowRuns = avg > 36 ? slowRuns + 1 : 0;
+                slowRuns = avg > (lowEnd ? 50 : 36) ? slowRuns + 1 : 0;
                 if (slowRuns < 2) return;
                 slowRuns = 0;
                 if (!document.documentElement.classList.contains('lowfx')) document.documentElement.classList.add('lowfx');
-                else if (pixelRatio > 1) renderer.setPixelRatio(pixelRatio = Math.max(1, pixelRatio - .5));
+                else if (pixelRatio > (lowEnd ? .75 : 1)) renderer.setPixelRatio(pixelRatio -= .25);
             }
             const pathPt = new THREE.Vector3(), aheadPt = new THREE.Vector3();
             const planePath = (tt, v) => v.set(Math.sin(tt) * 1.9, Math.sin(tt * 2) * .5 + .1, Math.cos(tt) * .45 - .3);
@@ -3358,10 +3371,15 @@
             function frame(now) {
                 requestAnimationFrame(frame);
                 if (document.hidden) return;
+                // phones / low-end: 30 fps is plenty for a soft background and halves GPU + battery use
+                if (lowEnd && now - last < 31) return;
                 watchFrameRate(now - last, now);
                 const frameS = (now - last) / 1000, dt = Math.min(.05, frameS); last = now;
                 if (!reduce) T += dt;
                 const s = main.scrollTop / main.clientHeight;
+                // reduced motion: nothing moves on its own, so only redraw when scroll, cursor or size changes
+                if (reduce && !dirty && s === sSm && Math.abs(mx - pmx) + Math.abs(my - pmy) < 1e-3) return;
+                dirty = false;
                 sSm = reduce ? s : sSm + (s - sSm) * (1 - Math.exp(-13 * Math.min(.25, frameS)));
                 pmx += (mx - pmx) * .05; pmy += (my - pmy) * .05;
 
@@ -3488,7 +3506,15 @@
 
         // Paint the page first; load the 3D scene right after. Its canvas text needs the
         // fonts, but a slow font never holds it back for long.
-        requestAnimationFrame(() => setTimeout(() => {
+        // Device tier for the 3D background: phones, touch tablets and weak CPUs get DPR 1, no MSAA and 30 fps
+        const lowEnd = innerWidth < 768 || matchMedia('(pointer: coarse)').matches || (navigator.deviceMemory || 8) <= 4 || (navigator.hardwareConcurrency || 8) <= 4;
+        const maxRatio = lowEnd ? 1 : Math.min(devicePixelRatio, innerWidth < 1440 ? 1.5 : 2);
+        // Text and layout come first: Three.js (~600 KB) is fetched only after the page has loaded and gone idle.
+        // Data-saver and 2 GB devices keep the CSS background instead of WebGL.
+        const skip3d = navigator.connection?.saveData || (navigator.deviceMemory || 8) <= 2;
+        const whenIdle = f => (window.requestIdleCallback ? requestIdleCallback(f, { timeout: 2500 }) : setTimeout(f, 300));
+        const after = f => document.readyState === 'complete' ? whenIdle(f) : addEventListener('load', () => whenIdle(f), { once: true });
+        if (!skip3d) after(() => {
             const script = new Promise(done => {
                 const s = document.createElement('script');
                 s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
@@ -3502,9 +3528,8 @@
                 ]).catch(() => { })
                 : null;
             Promise.all([script, fonts]).then(startScene);
-        }));
+        });
 
-        addEventListener('load', () => (window.requestIdleCallback || setTimeout)(() => { pageReady = true; warmProjects(); }));
     </script>
 </body>
 
